@@ -19,6 +19,15 @@
                         <h2 class="fw-bold text-center fs-18">Ingreso a Go Educa</h2>
                         <p class="text-muted text-center mt-1 mb-4">Ingresa tu RUT y contraseña para continuar.</p>
 
+                        <?php if (isset($dbStatus, $dbName)): ?>
+                            <div class="alert <?php echo $dbStatus === 'ok' ? 'alert-success' : 'alert-danger'; ?> text-center" role="alert">
+                                <div class="fw-semibold">Base de datos: <?php echo htmlspecialchars($dbName); ?></div>
+                                <div>
+                                    <?php echo $dbStatus === 'ok' ? 'Conexión exitosa.' : htmlspecialchars($dbError ?? 'Error de conexión.'); ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
                         <div class="px-4">
                             <form method="POST" action="/auth/login" class="authentication-form">
                                 <div class="mb-3">
