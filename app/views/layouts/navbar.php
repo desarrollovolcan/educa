@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="d-flex align-items-center gap-1">
-            <a href="/logout" class="btn btn-sm btn-outline-danger">
+            <a href="<?php echo BASE_URL; ?>/logout" class="btn btn-sm btn-outline-danger">
                 Cerrar sesión
             </a>
         </div>

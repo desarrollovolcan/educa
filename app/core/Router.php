@@ -62,6 +62,15 @@ class Router
             $path = '/';
         }
 
+        // Eliminar base path si la aplicación está en subcarpeta.
+        $basePath = defined('BASE_URL') ? BASE_URL : '';
+        if ($basePath !== '' && strpos($path, $basePath) === 0) {
+            $path = substr($path, strlen($basePath));
+            if ($path === '') {
+                $path = '/';
+            }
+        }
+
         // Si la ruta existe para el método, ejecutarla.
         if (isset($this->routes[$method][$path])) {
             call_user_func($this->routes[$method][$path]);
