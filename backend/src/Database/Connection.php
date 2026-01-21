@@ -25,8 +25,8 @@ final class Connection
     {
         $host = Env::get('DB_HOST', '127.0.0.1');
         $port = Env::get('DB_PORT', '3306');
-        $db = Env::get('DB_DATABASE', 'goeduca');
-        $user = Env::get('DB_USERNAME', 'goeduca');
+        $db = Env::get('DB_DATABASE', 'educa');
+        $user = Env::get('DB_USERNAME', 'root');
         $pass = Env::get('DB_PASSWORD', '');
         $dsn = sprintf('mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4', $host, $port, $db);
 
