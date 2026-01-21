@@ -22,6 +22,10 @@
                         <?php if (isset($dbStatus, $dbName)): ?>
                             <div class="alert <?php echo $dbStatus === 'ok' ? 'alert-success' : 'alert-danger'; ?> text-center" role="alert">
                                 <div class="fw-semibold">Base de datos: <?php echo htmlspecialchars($dbName); ?></div>
+                                <span class="badge rounded-pill <?php echo $dbStatus === 'ok' ? 'bg-success' : 'bg-danger'; ?>">
+                                    <i class="bx <?php echo $dbStatus === 'ok' ? 'bx-check-circle' : 'bx-error-circle'; ?>"></i>
+                                    <?php echo $dbStatus === 'ok' ? 'Conectado' : 'Sin conexión'; ?>
+                                </span>
                                 <div>
                                     <?php echo $dbStatus === 'ok' ? 'Conexión exitosa.' : htmlspecialchars($dbError ?? 'Error de conexión.'); ?>
                                 </div>
@@ -29,13 +33,25 @@
                         <?php endif; ?>
 
                         <div class="px-4">
-                            <form method="POST" action="/auth/login" class="authentication-form">
+                            <form method="POST" action="<?php echo $assetBase; ?>/auth/login" class="authentication-form">
+                                <div class="mb-3">
+                                    <label class="form-label" for="role">Perfil</label>
+                                    <select id="role" name="role" class="form-select" required>
+                                        <option value="director" <?php echo ($currentRole ?? '') === 'director' ? 'selected' : ''; ?>>Director / UTP</option>
+                                        <option value="teacher" <?php echo ($currentRole ?? '') === 'teacher' ? 'selected' : ''; ?>>Docente</option>
+                                        <option value="inspector" <?php echo ($currentRole ?? '') === 'inspector' ? 'selected' : ''; ?>>Inspectoría / Convivencia</option>
+                                        <option value="pie" <?php echo ($currentRole ?? '') === 'pie' ? 'selected' : ''; ?>>PIE / Orientación</option>
+                                        <option value="guardian" <?php echo ($currentRole ?? '') === 'guardian' ? 'selected' : ''; ?>>Apoderado</option>
+                                        <option value="student" <?php echo ($currentRole ?? '') === 'student' ? 'selected' : ''; ?>>Estudiante</option>
+                                        <option value="finance" <?php echo ($currentRole ?? '') === 'finance' ? 'selected' : ''; ?>>Finanzas</option>
+                                    </select>
+                                </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="rut">RUT</label>
                                     <input type="text" id="rut" name="rut" class="form-control" placeholder="12.345.678-9" required>
                                 </div>
                                 <div class="mb-3">
-                                    <a href="/auth/password-request" class="float-end text-muted text-unline-dashed ms-1">¿Olvidaste tu contraseña?</a>
+                                    <a href="<?php echo $assetBase; ?>/auth/password-request" class="float-end text-muted text-unline-dashed ms-1">¿Olvidaste tu contraseña?</a>
                                     <label class="form-label" for="password">Contraseña</label>
                                     <input type="password" id="password" name="password" class="form-control" placeholder="Ingresa tu contraseña" required>
                                 </div>
