@@ -12,6 +12,7 @@
     <link href="<?php echo $assetBase; ?>/assets/css/vendor.min.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo $assetBase; ?>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo $assetBase; ?>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $assetBase; ?>/assets/css/auth-custom.css" rel="stylesheet" type="text/css" />
 </head>
 <body class="authentication-bg">
 <?php require $contentView; ?>
