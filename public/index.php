@@ -40,19 +40,16 @@ $routes = require __DIR__ . '/../routes/web.php';
 
 $controller = new PageController();
 
-if ($method === 'POST' && $uri === '/auth/login') {
-    if (!DatabaseService::isAvailable()) {
-        $controller->render('auth/login', [
-            'title' => 'Login',
-            'layout' => 'auth',
-            'loginError' => 'No se pudo conectar con la base de datos MySQL.',
-        ]);
-        exit;
-    }
-    $username = trim($_POST['username'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $db = DatabaseService::getInstance();
-    $user = $db->verifyUser($username, $password);
+$dashboardRoutes = [
+    'director' => '/dashboard/director',
+    'teacher' => '/dashboard/teacher',
+    'inspector' => '/dashboard/inspector',
+    'pie' => '/dashboard/pie',
+    'guardian' => '/dashboard/guardian',
+    'student' => '/dashboard/student',
+    'finance' => '/dashboard/finance',
+];
+$defaultDashboard = $dashboardRoutes['director'];
 
     if ($user !== null) {
         $_SESSION['authenticated'] = true;
@@ -71,11 +68,13 @@ if ($method === 'POST' && $uri === '/auth/login') {
         exit;
     }
 
-    $controller->render('auth/login', [
-        'title' => 'Login',
-        'layout' => 'auth',
-        'loginError' => 'Usuario o contraseña inválidos.',
-    ]);
+if (strpos($uri, '/auth') === 0) {
+    header('Location: ' . $basePath . $defaultDashboard);
+    exit;
+}
+
+if ($method === 'POST' && $uri === '/auth/login') {
+    header('Location: ' . $basePath . $defaultDashboard);
     exit;
 }
 
