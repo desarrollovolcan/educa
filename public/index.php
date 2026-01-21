@@ -51,10 +51,22 @@ $dashboardRoutes = [
 ];
 $defaultDashboard = $dashboardRoutes['director'];
 
-if (empty($_SESSION['authenticated'])) {
-    $_SESSION['authenticated'] = true;
-    $_SESSION['role'] = 'director';
-}
+    if ($user !== null) {
+        $_SESSION['authenticated'] = true;
+        $_SESSION['role'] = $user['role'] ?? 'director';
+        $dashboardRoutes = [
+            'director' => '/dashboard/director',
+            'teacher' => '/dashboard/teacher',
+            'inspector' => '/dashboard/inspector',
+            'pie' => '/dashboard/pie',
+            'guardian' => '/dashboard/guardian',
+            'student' => '/dashboard/student',
+            'finance' => '/dashboard/finance',
+        ];
+        $target = $dashboardRoutes[$_SESSION['role']] ?? '/dashboard/director';
+        header('Location: ' . $basePath . $target);
+        exit;
+    }
 
 if (strpos($uri, '/auth') === 0) {
     header('Location: ' . $basePath . $defaultDashboard);
@@ -67,6 +79,11 @@ if ($method === 'POST' && $uri === '/auth/login') {
 }
 
 if (isset($routes[$uri])) {
+    $isAuthRoute = strpos($uri, '/auth') === 0;
+    if (!$isAuthRoute && empty($_SESSION['authenticated'])) {
+        header('Location: ' . $basePath . '/auth/login');
+        exit;
+    }
     $route = $routes[$uri];
     $controller->render($route['view'], [
         'title' => $route['title'],

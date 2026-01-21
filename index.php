@@ -40,33 +40,51 @@ $routes = require __DIR__ . '/routes/web.php';
 
 $controller = new PageController();
 
-$dashboardRoutes = [
-    'director' => '/dashboard/director',
-    'teacher' => '/dashboard/teacher',
-    'inspector' => '/dashboard/inspector',
-    'pie' => '/dashboard/pie',
-    'guardian' => '/dashboard/guardian',
-    'student' => '/dashboard/student',
-    'finance' => '/dashboard/finance',
-];
-$defaultDashboard = $dashboardRoutes['director'];
-
-if (empty($_SESSION['authenticated'])) {
-    $_SESSION['authenticated'] = true;
-    $_SESSION['role'] = 'director';
-}
-
-if (strpos($uri, '/auth') === 0) {
-    header('Location: ' . $basePath . $defaultDashboard);
-    exit;
-}
-
 if ($method === 'POST' && $uri === '/auth/login') {
-    header('Location: ' . $basePath . $defaultDashboard);
+    if (!DatabaseService::isAvailable()) {
+        $controller->render('auth/login', [
+            'title' => 'Login',
+            'layout' => 'auth',
+            'loginError' => 'No se pudo conectar con la base de datos MySQL.',
+        ]);
+        exit;
+    }
+    $username = trim($_POST['username'] ?? '');
+    $password = $_POST['password'] ?? '';
+    $db = DatabaseService::getInstance();
+    $user = $db->verifyUser($username, $password);
+
+    if ($user !== null) {
+        $_SESSION['authenticated'] = true;
+        $_SESSION['role'] = $user['role'] ?? 'director';
+        $dashboardRoutes = [
+            'director' => '/dashboard/director',
+            'teacher' => '/dashboard/teacher',
+            'inspector' => '/dashboard/inspector',
+            'pie' => '/dashboard/pie',
+            'guardian' => '/dashboard/guardian',
+            'student' => '/dashboard/student',
+            'finance' => '/dashboard/finance',
+        ];
+        $target = $dashboardRoutes[$_SESSION['role']] ?? '/dashboard/director';
+        header('Location: ' . $basePath . $target);
+        exit;
+    }
+
+    $controller->render('auth/login', [
+        'title' => 'Login',
+        'layout' => 'auth',
+        'loginError' => 'Usuario o contraseña inválidos.',
+    ]);
     exit;
 }
 
 if (isset($routes[$uri])) {
+    $isAuthRoute = strpos($uri, '/auth') === 0;
+    if (!$isAuthRoute && empty($_SESSION['authenticated'])) {
+        header('Location: ' . $basePath . '/auth/login');
+        exit;
+    }
     $route = $routes[$uri];
     $controller->render($route['view'], [
         'title' => $route['title'],
