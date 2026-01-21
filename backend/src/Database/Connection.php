@@ -64,7 +64,7 @@ final class Connection
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             ]);
         } catch (PDOException $exception) {
-            fwrite(STDERR, "Database connection failed: {$exception->getMessage()}" . PHP_EOL);
+            error_log("Database connection failed: {$exception->getMessage()}");
             if ($exitOnFailure) {
                 exit(1);
             }
