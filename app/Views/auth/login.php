@@ -17,11 +17,21 @@
                         </div>
 
                         <h2 class="fw-bold text-center fs-18">Ingreso a Go Educa</h2>
-                        <p class="text-muted text-center mt-1 mb-4">Ingresa tu RUT y contraseña para continuar.</p>
+                        <p class="text-muted text-center mt-1 mb-4">Ingresa tu usuario y contraseña para continuar.</p>
+
+                        <?php if (!empty($loginError)): ?>
+                            <div class="alert alert-danger text-center" role="alert">
+                                <?php echo htmlspecialchars($loginError); ?>
+                            </div>
+                        <?php endif; ?>
 
                         <?php if (isset($dbStatus, $dbName)): ?>
                             <div class="alert <?php echo $dbStatus === 'ok' ? 'alert-success' : 'alert-danger'; ?> text-center" role="alert">
                                 <div class="fw-semibold">Base de datos: <?php echo htmlspecialchars($dbName); ?></div>
+                                <span class="badge rounded-pill <?php echo $dbStatus === 'ok' ? 'bg-success' : 'bg-danger'; ?>">
+                                    <i class="bx <?php echo $dbStatus === 'ok' ? 'bx-check-circle' : 'bx-error-circle'; ?>"></i>
+                                    <?php echo $dbStatus === 'ok' ? 'Conectado' : 'Sin conexión'; ?>
+                                </span>
                                 <div>
                                     <?php echo $dbStatus === 'ok' ? 'Conexión exitosa.' : htmlspecialchars($dbError ?? 'Error de conexión.'); ?>
                                 </div>
@@ -29,13 +39,13 @@
                         <?php endif; ?>
 
                         <div class="px-4">
-                            <form method="POST" action="/auth/login" class="authentication-form">
+                            <form method="POST" action="<?php echo $assetBase; ?>/auth/login" class="authentication-form">
                                 <div class="mb-3">
-                                    <label class="form-label" for="rut">RUT</label>
-                                    <input type="text" id="rut" name="rut" class="form-control" placeholder="12.345.678-9" required>
+                                    <label class="form-label" for="username">Usuario</label>
+                                    <input type="text" id="username" name="username" class="form-control" placeholder="super_user" required>
                                 </div>
                                 <div class="mb-3">
-                                    <a href="/auth/password-request" class="float-end text-muted text-unline-dashed ms-1">¿Olvidaste tu contraseña?</a>
+                                    <a href="<?php echo $assetBase; ?>/auth/password-request" class="float-end text-muted text-unline-dashed ms-1">¿Olvidaste tu contraseña?</a>
                                     <label class="form-label" for="password">Contraseña</label>
                                     <input type="password" id="password" name="password" class="form-control" placeholder="Ingresa tu contraseña" required>
                                 </div>
