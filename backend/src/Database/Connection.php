@@ -48,8 +48,8 @@ final class Connection
     {
         $host = Env::get('DB_HOST', '127.0.0.1');
         $port = Env::get('DB_PORT', '3306');
-        $db = Env::get('DB_DATABASE', 'educa');
-        $user = Env::get('DB_USERNAME', 'root');
+        $db = Env::get('DB_DATABASE', 'goeduca');
+        $user = Env::get('DB_USERNAME', 'goeduca');
         $pass = Env::get('DB_PASSWORD', '');
         $dsn = sprintf('mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4', $host, $port, $db);
 
@@ -58,6 +58,15 @@ final class Connection
 
     private static function connect(string $dsn, string $user, string $pass, bool $exitOnFailure = true): ?PDO
     {
+        if (!class_exists(PDO::class)) {
+            error_log('Database connection failed: PDO extension is not available.');
+            if ($exitOnFailure) {
+                exit(1);
+            }
+
+            return null;
+        }
+
         try {
             $pdo = new PDO($dsn, $user, $pass, [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

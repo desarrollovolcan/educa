@@ -28,12 +28,17 @@ final class PageController
 
         if ($view === 'auth/login') {
             $dbName = Env::get('DB_DATABASE', 'goeduca');
-            $pdo = Connection::appPdoOrNull();
-            if ($pdo === null) {
+            if (!class_exists(\PDO::class)) {
                 $dbStatus = 'error';
-                $dbError = 'No se pudo conectar con la base de datos.';
+                $dbError = 'Extensión PDO no disponible en el servidor.';
             } else {
-                $dbStatus = 'ok';
+                $pdo = Connection::appPdoOrNull();
+                if ($pdo === null) {
+                    $dbStatus = 'error';
+                    $dbError = 'No se pudo conectar con la base de datos.';
+                } else {
+                    $dbStatus = 'ok';
+                }
             }
         }
 
