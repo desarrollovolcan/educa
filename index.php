@@ -5,6 +5,7 @@ declare(strict_types=1);
 session_start();
 
 require_once __DIR__ . '/backend/src/Support/Env.php';
+require_once __DIR__ . '/services/database.php';
 if (class_exists('PDO')) {
     require_once __DIR__ . '/backend/src/Database/Connection.php';
 }
@@ -14,6 +15,7 @@ use GoEduca\Controllers\PageController;
 use GoEduca\Support\Env;
 
 Env::load(__DIR__ . '/backend/.env');
+DatabaseService::bootstrap();
 
 $controller = new PageController();
 $controller->render('auth/login', [

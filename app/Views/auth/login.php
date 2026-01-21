@@ -17,7 +17,13 @@
                         </div>
 
                         <h2 class="fw-bold text-center fs-18">Ingreso a Go Educa</h2>
-                        <p class="text-muted text-center mt-1 mb-4">Ingresa tu RUT y contraseña para continuar.</p>
+                        <p class="text-muted text-center mt-1 mb-4">Ingresa tu usuario y contraseña para continuar.</p>
+
+                        <?php if (!empty($loginError)): ?>
+                            <div class="alert alert-danger text-center" role="alert">
+                                <?php echo htmlspecialchars($loginError); ?>
+                            </div>
+                        <?php endif; ?>
 
                         <?php if (isset($dbStatus, $dbName)): ?>
                             <div class="alert <?php echo $dbStatus === 'ok' ? 'alert-success' : 'alert-danger'; ?> text-center" role="alert">
@@ -35,20 +41,8 @@
                         <div class="px-4">
                             <form method="POST" action="<?php echo $assetBase; ?>/auth/login" class="authentication-form">
                                 <div class="mb-3">
-                                    <label class="form-label" for="role">Perfil</label>
-                                    <select id="role" name="role" class="form-select" required>
-                                        <option value="director" <?php echo ($currentRole ?? '') === 'director' ? 'selected' : ''; ?>>Director / UTP</option>
-                                        <option value="teacher" <?php echo ($currentRole ?? '') === 'teacher' ? 'selected' : ''; ?>>Docente</option>
-                                        <option value="inspector" <?php echo ($currentRole ?? '') === 'inspector' ? 'selected' : ''; ?>>Inspectoría / Convivencia</option>
-                                        <option value="pie" <?php echo ($currentRole ?? '') === 'pie' ? 'selected' : ''; ?>>PIE / Orientación</option>
-                                        <option value="guardian" <?php echo ($currentRole ?? '') === 'guardian' ? 'selected' : ''; ?>>Apoderado</option>
-                                        <option value="student" <?php echo ($currentRole ?? '') === 'student' ? 'selected' : ''; ?>>Estudiante</option>
-                                        <option value="finance" <?php echo ($currentRole ?? '') === 'finance' ? 'selected' : ''; ?>>Finanzas</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="rut">RUT</label>
-                                    <input type="text" id="rut" name="rut" class="form-control" placeholder="12.345.678-9" required>
+                                    <label class="form-label" for="username">Usuario</label>
+                                    <input type="text" id="username" name="username" class="form-control" placeholder="super_user" required>
                                 </div>
                                 <div class="mb-3">
                                     <a href="<?php echo $assetBase; ?>/auth/password-request" class="float-end text-muted text-unline-dashed ms-1">¿Olvidaste tu contraseña?</a>

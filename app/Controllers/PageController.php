@@ -31,6 +31,7 @@ final class PageController
         $dbName = null;
         $dbError = null;
         $currentRole = $_SESSION['role'] ?? 'director';
+        $loginError = $data['loginError'] ?? null;
 
         if ($view === 'auth/login') {
             $dbName = Env::get('DB_DATABASE', 'educa');
