@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `base_datos` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `base_datos`;
+CREATE DATABASE IF NOT EXISTS `educa` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `educa`;
 
 CREATE TABLE tenants (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
