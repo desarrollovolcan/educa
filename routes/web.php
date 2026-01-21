@@ -1,8 +1,8 @@
 <?php
 
 return [
-    '/' => ['view' => 'auth/login', 'title' => 'Login', 'layout' => 'auth'],
-    '/auth/login' => ['view' => 'auth/login', 'title' => 'Login', 'layout' => 'auth'],
+    '/' => ['view' => 'dashboards/director', 'title' => 'Dashboard Director/UTP'],
+    '/auth/login' => ['view' => 'dashboards/director', 'title' => 'Dashboard Director/UTP'],
     '/auth/password-request' => ['view' => 'auth/password-request', 'title' => 'Recuperar contraseña', 'layout' => 'auth'],
     '/auth/password-reset' => ['view' => 'auth/password-reset', 'title' => 'Restablecer contraseña', 'layout' => 'auth'],
     '/auth/2fa' => ['view' => 'auth/2fa', 'title' => 'Verificación 2FA', 'layout' => 'auth'],
