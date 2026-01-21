@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../backend/src/Support/Env.php';
-require_once __DIR__ . '/../backend/src/Database/Connection.php';
+if (class_exists('PDO')) {
+    require_once __DIR__ . '/../backend/src/Database/conexion.php';
+}
 require_once __DIR__ . '/../app/Controllers/PageController.php';
 require_once __DIR__ . '/../app/Support/Rut.php';
 
@@ -17,12 +19,17 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $routes = require __DIR__ . '/../routes/web.php';
 
 $controller = new PageController();
+$basePath = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/');
+if ($basePath === '/') {
+    $basePath = '';
+}
 
 if (isset($routes[$uri])) {
     $route = $routes[$uri];
     $controller->render($route['view'], [
         'title' => $route['title'],
         'layout' => $route['layout'] ?? 'app',
+        'assetBase' => $basePath,
     ]);
     exit;
 }
