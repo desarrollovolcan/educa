@@ -1,0 +1,49 @@
+:root{--bs-body-font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;--bs-body-color:#1f2937;--bs-body-bg:#f8fafc;--bs-primary:#4f46e5;--bs-muted:#6b7280;--bs-border-color:#e5e7eb}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:var(--bs-body-font-family);color:var(--bs-body-color);background:var(--bs-body-bg)}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;height:auto}
+.container{width:100%;padding:0 1.5rem;margin:0 auto;max-width:1200px}
+.row{display:flex;flex-wrap:wrap;margin:-0.75rem}
+.row > *{padding:0.75rem}
+.col-12{flex:0 0 100%;max-width:100%}
+.col-xl-5{flex:0 0 100%;max-width:100%}
+@media (min-width:1200px){.col-xl-5{flex:0 0 41.666667%;max-width:41.666667%}}
+.text-center{text-align:center}
+.text-muted{color:var(--bs-muted)}
+.mb-0{margin-bottom:0}
+.mb-1{margin-bottom:0.25rem}
+.mb-3{margin-bottom:1rem}
+.mb-4{margin-bottom:1.5rem}
+.mt-1{margin-top:0.25rem}
+.mt-3{margin-top:1rem}
+.pt-2{padding-top:0.5rem}
+.pb-4{padding-bottom:1.5rem}
+.pt-sm-5{padding-top:3rem}
+.pb-sm-5{padding-bottom:3rem}
+.d-grid{display:grid}
+.float-end{float:right}
+.me-1{margin-right:0.25rem}
+.ms-1{margin-left:0.25rem}
+.px-3{padding-left:1rem;padding-right:1rem}
+.px-4{padding-left:1.5rem;padding-right:1.5rem}
+.py-5{padding-top:3rem;padding-bottom:3rem}
+.pt-sm-5{padding-top:3rem}
+.pb-sm-5{padding-bottom:3rem}
+.justify-content-center{justify-content:center}
+.fw-bold{font-weight:700}
+.fw-semibold{font-weight:600}
+.fs-18{font-size:1.125rem}
+.fs-20{font-size:1.25rem}
+.form-label{display:block;margin-bottom:0.5rem;font-weight:600}
+.form-control{display:block;width:100%;padding:0.65rem 0.75rem;border:1px solid var(--bs-border-color);border-radius:0.5rem;background:#fff;font-size:0.95rem}
+.form-control:focus{outline:2px solid rgba(79,70,229,0.2);border-color:var(--bs-primary)}
+.card{border-radius:1rem;background:#fff;box-shadow:0 12px 30px rgba(15,23,42,0.08)}
+.card-body{padding:1.5rem}
+.form-check{display:flex;align-items:center;gap:0.5rem}
+.form-check-input{width:1rem;height:1rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:0.65rem 1rem;border-radius:0.5rem;border:1px solid transparent;font-weight:600;cursor:pointer}
+.btn-primary{background:var(--bs-primary);color:#fff}
+.btn-light{background:#f1f5f9;color:#0f172a;border-color:#e2e8f0}
+.shadow-none{box-shadow:none}
+.w-100{width:100%}
