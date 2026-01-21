@@ -7,7 +7,7 @@ use GoEduca\Database\Connection;
 use GoEduca\Support\Env;
 
 require_once __DIR__ . '/../src/Support/Env.php';
-require_once __DIR__ . '/../src/Database/Connection.php';
+require_once __DIR__ . '/../src/conexion/Connection.php';
 
 Env::load(__DIR__ . '/../.env');
 
