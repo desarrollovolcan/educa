@@ -22,6 +22,10 @@
                         <?php if (isset($dbStatus, $dbName)): ?>
                             <div class="alert <?php echo $dbStatus === 'ok' ? 'alert-success' : 'alert-danger'; ?> text-center" role="alert">
                                 <div class="fw-semibold">Base de datos: <?php echo htmlspecialchars($dbName); ?></div>
+                                <span class="badge rounded-pill <?php echo $dbStatus === 'ok' ? 'bg-success' : 'bg-danger'; ?>">
+                                    <i class="bx <?php echo $dbStatus === 'ok' ? 'bx-check-circle' : 'bx-error-circle'; ?>"></i>
+                                    <?php echo $dbStatus === 'ok' ? 'Conectado' : 'Sin conexión'; ?>
+                                </span>
                                 <div>
                                     <?php echo $dbStatus === 'ok' ? 'Conexión exitosa.' : htmlspecialchars($dbError ?? 'Error de conexión.'); ?>
                                 </div>
