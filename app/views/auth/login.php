@@ -20,13 +20,13 @@ include __DIR__ . '/../layouts/header.php';
                     <div class="card-body px-3 py-5">
                         <div class="mx-auto mb-4 text-center auth-logo">
                             <a href="<?php echo BASE_URL; ?>/login" class="logo-dark">
-                                <img src="<?php echo BASE_URL; ?>/assets/images/logo-sm.png" height="30" class="me-1" alt="logo sm">
-                                <img src="<?php echo BASE_URL; ?>/assets/images/logo-dark.png" height="24" alt="logo dark">
+                                <img src="<?php echo PUBLIC_URL; ?>/assets/images/logo-sm.png" height="30" class="me-1" alt="logo sm">
+                                <img src="<?php echo PUBLIC_URL; ?>/assets/images/logo-dark.png" height="24" alt="logo dark">
                             </a>
 
                             <a href="<?php echo BASE_URL; ?>/login" class="logo-light">
-                                <img src="<?php echo BASE_URL; ?>/assets/images/logo-sm.png" height="30" class="me-1" alt="logo sm">
-                                <img src="<?php echo BASE_URL; ?>/assets/images/logo-light.png" height="24" alt="logo light">
+                                <img src="<?php echo PUBLIC_URL; ?>/assets/images/logo-sm.png" height="30" class="me-1" alt="logo sm">
+                                <img src="<?php echo PUBLIC_URL; ?>/assets/images/logo-light.png" height="24" alt="logo light">
                             </a>
                         </div>
 
@@ -71,7 +71,7 @@ include __DIR__ . '/../layouts/header.php';
 </div>
 
 <!-- Scripts comunes -->
-<script src="<?php echo BASE_URL; ?>/assets/js/vendor.js"></script>
-<script src="<?php echo BASE_URL; ?>/assets/js/app.js"></script>
+<script src="<?php echo PUBLIC_URL; ?>/assets/js/vendor.js"></script>
+<script src="<?php echo PUBLIC_URL; ?>/assets/js/app.js"></script>
 </body>
 </html>

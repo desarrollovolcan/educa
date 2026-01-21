@@ -16,3 +16,9 @@ if ($basePath === '/' || $basePath === '.') {
     $basePath = '';
 }
 define('BASE_URL', $basePath);
+
+$publicPath = $basePath;
+if ($publicPath === '' || substr($publicPath, -7) !== '/public') {
+    $publicPath = rtrim($publicPath . '/public', '/');
+}
+define('PUBLIC_URL', $publicPath);

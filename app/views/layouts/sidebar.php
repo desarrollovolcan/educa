@@ -8,19 +8,19 @@
     <!-- Logo en sidebar -->
     <a href="<?php echo BASE_URL; ?>/dashboard" class="logo text-center logo-light">
         <span class="logo-lg">
-            <img src="<?php echo BASE_URL; ?>/assets/images/logo-light.png" alt="logo" height="22">
+            <img src="<?php echo PUBLIC_URL; ?>/assets/images/logo-light.png" alt="logo" height="22">
         </span>
         <span class="logo-sm">
-            <img src="<?php echo BASE_URL; ?>/assets/images/logo-sm.png" alt="logo" height="24">
+            <img src="<?php echo PUBLIC_URL; ?>/assets/images/logo-sm.png" alt="logo" height="24">
         </span>
     </a>
 
     <a href="<?php echo BASE_URL; ?>/dashboard" class="logo text-center logo-dark">
         <span class="logo-lg">
-            <img src="<?php echo BASE_URL; ?>/assets/images/logo-dark.png" alt="logo" height="22">
+            <img src="<?php echo PUBLIC_URL; ?>/assets/images/logo-dark.png" alt="logo" height="22">
         </span>
         <span class="logo-sm">
-            <img src="<?php echo BASE_URL; ?>/assets/images/logo-sm.png" alt="logo" height="24">
+            <img src="<?php echo PUBLIC_URL; ?>/assets/images/logo-sm.png" alt="logo" height="24">
         </span>
     </a>
 
