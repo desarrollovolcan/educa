@@ -19,11 +19,11 @@ Env::load(__DIR__ . '/../backend/.env');
 DatabaseService::bootstrap();
 
 $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
-$basePath = rtrim(dirname($scriptName), '/');
-if ($basePath === '/') {
+$basePath = rtrim(str_replace('\\', '/', dirname($scriptName)), '/');
+if ($basePath === '/' || $basePath === '.') {
     $basePath = '';
 }
-if ($basePath !== '' && str_ends_with($basePath, '/public')) {
+if ($basePath !== '' && substr($basePath, -7) === '/public') {
     $basePath = substr($basePath, 0, -7);
 }
 
