@@ -12,7 +12,7 @@ php backend/bin/goeduca db:init
 ```
 - Crea base de datos, usuario y permisos.
 - Aplica todas las migraciones.
-- Ejecuta seeds mínimos.
+- Ejecuta seeds mínimos (`bd_inicial.sql`).
 
 ### Upgrade
 ```bash

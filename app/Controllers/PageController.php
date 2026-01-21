@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace GoEduca\Controllers;
 
+use GoEduca\Database\Connection;
+use GoEduca\Support\Env;
+
 final class PageController
 {
     public function render(string $view, array $data = []): void
@@ -18,6 +21,21 @@ final class PageController
         $title = $data['title'] ?? 'Go Educa';
         $contentView = $viewPath;
         $layout = $data['layout'] ?? 'app';
+
+        $dbStatus = null;
+        $dbName = null;
+        $dbError = null;
+
+        if ($view === 'auth/login') {
+            $dbName = Env::get('DB_DATABASE', 'goeduca');
+            $pdo = Connection::appPdoOrNull();
+            if ($pdo === null) {
+                $dbStatus = 'error';
+                $dbError = 'No se pudo conectar con la base de datos.';
+            } else {
+                $dbStatus = 'ok';
+            }
+        }
 
         $layoutPath = __DIR__ . '/../Views/layouts/' . $layout . '.php';
         if (!file_exists($layoutPath)) {
