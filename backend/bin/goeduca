@@ -22,7 +22,7 @@ if ($command === null) {
 $basePath = realpath(__DIR__ . '/..');
 $migrationsPath = $basePath . '/../database/migrations';
 $updatesPath = $basePath . '/../database/updates';
-$seedsPath = $basePath . '/../database/seeds/seed.sql';
+$seedsPath = $basePath . '/../database/seeds/bd_inicial.sql';
 
 switch ($command) {
     case 'db:init':
