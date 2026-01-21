@@ -19,14 +19,14 @@ include __DIR__ . '/../layouts/header.php';
                 <div class="card auth-card">
                     <div class="card-body px-3 py-5">
                         <div class="mx-auto mb-4 text-center auth-logo">
-                            <a href="/login" class="logo-dark">
-                                <img src="/assets/images/logo-sm.png" height="30" class="me-1" alt="logo sm">
-                                <img src="/assets/images/logo-dark.png" height="24" alt="logo dark">
+                            <a href="<?php echo BASE_URL; ?>/login" class="logo-dark">
+                                <img src="<?php echo BASE_URL; ?>/assets/images/logo-sm.png" height="30" class="me-1" alt="logo sm">
+                                <img src="<?php echo BASE_URL; ?>/assets/images/logo-dark.png" height="24" alt="logo dark">
                             </a>
 
-                            <a href="/login" class="logo-light">
-                                <img src="/assets/images/logo-sm.png" height="30" class="me-1" alt="logo sm">
-                                <img src="/assets/images/logo-light.png" height="24" alt="logo light">
+                            <a href="<?php echo BASE_URL; ?>/login" class="logo-light">
+                                <img src="<?php echo BASE_URL; ?>/assets/images/logo-sm.png" height="30" class="me-1" alt="logo sm">
+                                <img src="<?php echo BASE_URL; ?>/assets/images/logo-light.png" height="24" alt="logo light">
                             </a>
                         </div>
 
@@ -34,7 +34,7 @@ include __DIR__ . '/../layouts/header.php';
                         <p class="text-muted text-center mt-1 mb-4">Ingresa tu RUT y contraseña para acceder.</p>
 
                         <div class="px-4">
-                            <form method="POST" action="/login" class="authentication-form">
+                            <form method="POST" action="<?php echo BASE_URL; ?>/login" class="authentication-form">
                                 <!-- Token CSRF obligatorio -->
                                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
 
@@ -71,7 +71,7 @@ include __DIR__ . '/../layouts/header.php';
 </div>
 
 <!-- Scripts comunes -->
-<script src="/assets/js/vendor.js"></script>
-<script src="/assets/js/app.js"></script>
+<script src="<?php echo BASE_URL; ?>/assets/js/vendor.js"></script>
+<script src="<?php echo BASE_URL; ?>/assets/js/app.js"></script>
 </body>
 </html>

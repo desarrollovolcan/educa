@@ -9,10 +9,10 @@ require_once __DIR__ . '/../app/controllers/DashboardController.php';
 // Instanciar router.
 $router = new Router();
 
-// Ruta por defecto: dashboard en la raíz.
+// Ruta por defecto: mostrar login en la raíz.
 $router->get('/', function () {
-    $controller = new DashboardController();
-    $controller->index();
+    $controller = new AuthController();
+    $controller->showLogin();
 });
 
 // Rutas de autenticación.

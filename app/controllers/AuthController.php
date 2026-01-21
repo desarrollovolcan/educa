@@ -53,7 +53,7 @@ class AuthController extends Controller
         // Validar CSRF.
         if (!Csrf::validateToken($csrf)) {
             $_SESSION['login_error'] = 'Credenciales inválidas';
-            header('Location: /login');
+            header('Location: ' . BASE_URL . '/login');
             exit;
         }
 
@@ -61,7 +61,7 @@ class AuthController extends Controller
         $rutNormalized = Validator::normalizeRut($rut);
         if (!Validator::validateRut($rutNormalized)) {
             $_SESSION['login_error'] = 'Credenciales inválidas';
-            header('Location: /login');
+            header('Location: ' . BASE_URL . '/login');
             exit;
         }
 
@@ -75,7 +75,7 @@ class AuthController extends Controller
         $failedAttempts = $userModel->countFailedAttemptsByIp($ip, 10);
         if ($failedAttempts >= 5) {
             $_SESSION['login_error'] = 'Credenciales inválidas';
-            header('Location: /login');
+            header('Location: ' . BASE_URL . '/login');
             exit;
         }
 
@@ -88,7 +88,7 @@ class AuthController extends Controller
             $userModel->logLoginAttempt($rutNormalized, $ip, false);
 
             $_SESSION['login_error'] = 'Credenciales inválidas';
-            header('Location: /login');
+            header('Location: ' . BASE_URL . '/login');
             exit;
         }
 
@@ -110,8 +110,8 @@ class AuthController extends Controller
             $ip
         );
 
-        // Redirigir a dashboard en la raíz.
-        header('Location: /');
+        // Redirigir a dashboard.
+        header('Location: ' . BASE_URL . '/dashboard');
         exit;
     }
 
@@ -126,7 +126,7 @@ class AuthController extends Controller
         Auth::logout();
 
         // Redirigir a login.
-        header('Location: /login');
+        header('Location: ' . BASE_URL . '/login');
         exit;
     }
 }

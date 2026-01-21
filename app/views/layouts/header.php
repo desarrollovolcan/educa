@@ -14,14 +14,14 @@
     <meta content="Go Educa" name="author" />
 
     <!-- Vendor css (Require in all Page) -->
-    <link href="/assets/css/vendor.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo BASE_URL; ?>/assets/css/vendor.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Icons css (Require in all Page) -->
-    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo BASE_URL; ?>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 
     <!-- App css (Require in all Page) -->
-    <link href="/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo BASE_URL; ?>/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Theme Config js (Require in all Page) -->
-    <script src="/assets/js/config.min.js"></script>
+    <script src="<?php echo BASE_URL; ?>/assets/js/config.min.js"></script>
 </head>

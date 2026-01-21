@@ -6,21 +6,21 @@
 ?>
 <div class="leftside-menu">
     <!-- Logo en sidebar -->
-    <a href="/dashboard" class="logo text-center logo-light">
+    <a href="<?php echo BASE_URL; ?>/dashboard" class="logo text-center logo-light">
         <span class="logo-lg">
-            <img src="/assets/images/logo-light.png" alt="logo" height="22">
+            <img src="<?php echo BASE_URL; ?>/assets/images/logo-light.png" alt="logo" height="22">
         </span>
         <span class="logo-sm">
-            <img src="/assets/images/logo-sm.png" alt="logo" height="24">
+            <img src="<?php echo BASE_URL; ?>/assets/images/logo-sm.png" alt="logo" height="24">
         </span>
     </a>
 
-    <a href="/dashboard" class="logo text-center logo-dark">
+    <a href="<?php echo BASE_URL; ?>/dashboard" class="logo text-center logo-dark">
         <span class="logo-lg">
-            <img src="/assets/images/logo-dark.png" alt="logo" height="22">
+            <img src="<?php echo BASE_URL; ?>/assets/images/logo-dark.png" alt="logo" height="22">
         </span>
         <span class="logo-sm">
-            <img src="/assets/images/logo-sm.png" alt="logo" height="24">
+            <img src="<?php echo BASE_URL; ?>/assets/images/logo-sm.png" alt="logo" height="24">
         </span>
     </a>
 
@@ -28,13 +28,13 @@
         <ul class="side-nav">
             <li class="side-nav-title">Menú</li>
             <li class="side-nav-item">
-                <a href="/dashboard" class="side-nav-link">
+                <a href="<?php echo BASE_URL; ?>/dashboard" class="side-nav-link">
                     <i class="bx bx-home"></i>
                     <span> Dashboard </span>
                 </a>
             </li>
             <li class="side-nav-item">
-                <a href="/logout" class="side-nav-link">
+                <a href="<?php echo BASE_URL; ?>/logout" class="side-nav-link">
                     <i class="bx bx-log-out"></i>
                     <span> Cerrar sesión </span>
                 </a>
