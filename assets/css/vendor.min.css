@@ -23,6 +23,14 @@ img{max-width:100%;height:auto}
 .pb-sm-5{padding-bottom:3rem}
 .d-grid{display:grid}
 .float-end{float:right}
+.me-1{margin-right:0.25rem}
+.ms-1{margin-left:0.25rem}
+.px-3{padding-left:1rem;padding-right:1rem}
+.px-4{padding-left:1.5rem;padding-right:1.5rem}
+.py-5{padding-top:3rem;padding-bottom:3rem}
+.pt-sm-5{padding-top:3rem}
+.pb-sm-5{padding-bottom:3rem}
+.justify-content-center{justify-content:center}
 .fw-bold{font-weight:700}
 .fw-semibold{font-weight:600}
 .fs-18{font-size:1.125rem}
@@ -30,6 +38,8 @@ img{max-width:100%;height:auto}
 .form-label{display:block;margin-bottom:0.5rem;font-weight:600}
 .form-control{display:block;width:100%;padding:0.65rem 0.75rem;border:1px solid var(--bs-border-color);border-radius:0.5rem;background:#fff;font-size:0.95rem}
 .form-control:focus{outline:2px solid rgba(79,70,229,0.2);border-color:var(--bs-primary)}
+.card{border-radius:1rem;background:#fff;box-shadow:0 12px 30px rgba(15,23,42,0.08)}
+.card-body{padding:1.5rem}
 .form-check{display:flex;align-items:center;gap:0.5rem}
 .form-check-input{width:1rem;height:1rem}
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:0.65rem 1rem;border-radius:0.5rem;border:1px solid transparent;font-weight:600;cursor:pointer}
