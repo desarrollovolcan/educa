@@ -30,7 +30,7 @@ final class Connection
         $pass = Env::get('DB_PASSWORD', '');
         $dsn = sprintf('mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4', $host, $port, $db);
 
-        return self::connect($dsn, $user, $pass);
+        return self::connect($dsn, $user, $pass, false);
     }
 
     public static function rootPdoOrNull(): ?PDO

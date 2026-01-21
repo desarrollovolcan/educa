@@ -46,6 +46,29 @@ final class PageController
             }
         }
 
+        $dbStatus = null;
+        $dbName = null;
+        $dbError = null;
+
+        if ($view === 'auth/login') {
+            $dbName = Env::get('DB_DATABASE', 'goeduca');
+            if (!class_exists(Connection::class)) {
+                $dbStatus = 'error';
+                $dbError = 'Servicio de base de datos no disponible.';
+            } elseif (!class_exists(\PDO::class)) {
+                $dbStatus = 'error';
+                $dbError = 'Extensión PDO no disponible en el servidor.';
+            } else {
+                $pdo = Connection::appPdoOrNull();
+                if ($pdo === null) {
+                    $dbStatus = 'error';
+                    $dbError = 'No se pudo conectar con la base de datos.';
+                } else {
+                    $dbStatus = 'ok';
+                }
+            }
+        }
+
         $layoutPath = __DIR__ . '/../Views/layouts/' . $layout . '.php';
         if (!file_exists($layoutPath)) {
             $layoutPath = __DIR__ . '/../Views/layouts/app.php';
