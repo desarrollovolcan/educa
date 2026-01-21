@@ -233,7 +233,7 @@ function applyMigrations(PDO $pdo, array $migrations, string $migrationsPath, st
     }
 
     $timestamp = date('Ymd_His');
-    $updateFile = sprintf('%s/%s__from_%s_to_%s.sql', $updatesPath, $timestamp, $fromVersion, $toVersion);
+    $updateFile = sprintf('%s/update_%s.sql', $updatesPath, $timestamp);
     file_put_contents($updateFile, $updatesSql);
 
     if ($includeSeed) {

@@ -20,7 +20,7 @@ php backend/bin/goeduca db:upgrade
 ```
 - Detecta migraciones pendientes.
 - Aplica cada migración y registra `schema_versions`.
-- Genera un SQL diferencial en `/database/updates`.
+- Genera un SQL diferencial en `/database/updates` con formato `update_YYYYMMDD_HHMMSS.sql`.
 
 ### Rollback
 ```bash
@@ -36,6 +36,5 @@ php backend/bin/goeduca db:backup
 - Requiere `mysqldump` disponible en el host.
 
 ## Aplicación manual de scripts
-1. Ubica el SQL diferencial en `/database/updates`.
+1. Ubica el SQL diferencial en `/database/updates` (formato `update_YYYYMMDD_HHMMSS.sql`).
 2. Ejecuta el SQL en el entorno productivo con un usuario con permisos de DDL.
-
