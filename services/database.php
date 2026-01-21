@@ -1,16 +1,24 @@
 <?php
 
-class DatabaseService extends SQLite3
+use GoEduca\Database\Connection;
+
+class DatabaseService
 {
-    private static $instance;
-    private string $dbPath;
+    private static ?DatabaseService $instance = null;
+    private ?PDO $pdo = null;
 
     public static function getInstance(): self
     {
         if (self::$instance === null) {
-            self::$instance = new DatabaseService();
+            self::$instance = new self();
         }
+
         return self::$instance;
+    }
+
+    public static function isAvailable(): bool
+    {
+        return class_exists('PDO') && class_exists(Connection::class) && Connection::appPdoOrNull() !== null;
     }
 
     public static function bootstrap(): void
@@ -20,60 +28,62 @@ class DatabaseService extends SQLite3
         $db->ensureSuperUser();
     }
 
-    public function __construct()
+    private function __construct()
     {
-        $this->dbPath = __DIR__ . '/database.db';
-        $this->open($this->dbPath);
+        $this->pdo = class_exists('PDO') && class_exists(Connection::class)
+            ? Connection::appPdoOrNull()
+            : null;
     }
 
     private function ensureSchema(): void
     {
-        $this->exec('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT)');
-
-        $columns = [];
-        $result = $this->query('PRAGMA table_info(users)');
-        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            $columns[$row['name']] = true;
+        if ($this->pdo === null) {
+            return;
         }
 
-        if (!isset($columns['username'])) {
-            $this->exec('ALTER TABLE users ADD COLUMN username TEXT');
-        }
-
-        if (!isset($columns['password_hash'])) {
-            $this->exec('ALTER TABLE users ADD COLUMN password_hash TEXT');
-        }
-
-        if (!isset($columns['role'])) {
-            $this->exec('ALTER TABLE users ADD COLUMN role TEXT');
-        }
+        $this->pdo->exec(
+            'CREATE TABLE IF NOT EXISTS users ('
+            . 'id INT AUTO_INCREMENT PRIMARY KEY,'
+            . 'email VARCHAR(255) NULL,'
+            . 'username VARCHAR(255) NOT NULL UNIQUE,'
+            . 'password_hash VARCHAR(255) NOT NULL,'
+            . 'role VARCHAR(50) NOT NULL DEFAULT "director"'
+            . ') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;'
+        );
     }
 
     private function ensureSuperUser(): void
     {
-        $stmt = $this->prepare('SELECT id FROM users WHERE username = :username LIMIT 1');
-        $stmt->bindValue(':username', 'super_user', SQLITE3_TEXT);
-        $result = $stmt->execute();
-        if ($result->fetchArray(SQLITE3_ASSOC)) {
+        if ($this->pdo === null) {
             return;
         }
 
-        $insert = $this->prepare(
+        $stmt = $this->pdo->prepare('SELECT id FROM users WHERE username = :username LIMIT 1');
+        $stmt->execute(['username' => 'super_user']);
+        if ($stmt->fetchColumn()) {
+            return;
+        }
+
+        $insert = $this->pdo->prepare(
             'INSERT INTO users (email, username, password_hash, role) VALUES (:email, :username, :password_hash, :role)'
         );
-        $insert->bindValue(':email', 'super_user@educa.local', SQLITE3_TEXT);
-        $insert->bindValue(':username', 'super_user', SQLITE3_TEXT);
-        $insert->bindValue(':password_hash', password_hash('123456789', PASSWORD_DEFAULT), SQLITE3_TEXT);
-        $insert->bindValue(':role', 'director', SQLITE3_TEXT);
-        $insert->execute();
+        $insert->execute([
+            'email' => 'super_user@educa.local',
+            'username' => 'super_user',
+            'password_hash' => password_hash('123456789', PASSWORD_DEFAULT),
+            'role' => 'director',
+        ]);
     }
 
     public function verifyUser(string $username, string $password): ?array
     {
-        $stmt = $this->prepare('SELECT username, password_hash, role FROM users WHERE username = :username LIMIT 1');
-        $stmt->bindValue(':username', $username, SQLITE3_TEXT);
-        $result = $stmt->execute();
-        $row = $result->fetchArray(SQLITE3_ASSOC);
+        if ($this->pdo === null) {
+            return null;
+        }
+
+        $stmt = $this->pdo->prepare('SELECT username, password_hash, role FROM users WHERE username = :username LIMIT 1');
+        $stmt->execute(['username' => $username]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$row) {
             return null;
         }
@@ -87,10 +97,13 @@ class DatabaseService extends SQLite3
 
     public function checkUser(string $email): bool
     {
-        $stmt = $this->prepare('SELECT id FROM users WHERE email = :email LIMIT 1');
-        $stmt->bindValue(':email', $email, SQLITE3_TEXT);
-        $result = $stmt->execute();
-        return (bool) $result->fetchArray(SQLITE3_ASSOC);
+        if ($this->pdo === null) {
+            return false;
+        }
+
+        $stmt = $this->pdo->prepare('SELECT id FROM users WHERE email = :email LIMIT 1');
+        $stmt->execute(['email' => $email]);
+        return (bool) $stmt->fetchColumn();
     }
 }
 

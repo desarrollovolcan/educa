@@ -26,6 +26,14 @@ $routes = require __DIR__ . '/../routes/web.php';
 $controller = new PageController();
 
 if ($method === 'POST' && $uri === '/auth/login') {
+    if (!DatabaseService::isAvailable()) {
+        $controller->render('auth/login', [
+            'title' => 'Login',
+            'layout' => 'auth',
+            'loginError' => 'No se pudo conectar con la base de datos MySQL.',
+        ]);
+        exit;
+    }
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
     $db = DatabaseService::getInstance();
