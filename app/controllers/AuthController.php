@@ -110,8 +110,8 @@ class AuthController extends Controller
             $ip
         );
 
-        // Redirigir a dashboard.
-        header('Location: /dashboard');
+        // Redirigir a dashboard en la raíz.
+        header('Location: /');
         exit;
     }
 
