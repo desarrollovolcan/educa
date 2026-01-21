@@ -10,4 +10,15 @@ define('APP_NAME', 'Go Educa');
 // URL base del proyecto (ajustar según carpeta en XAMPP).
 // Ejemplo: http://localhost/educa/public
 // Se usa para generar enlaces en vistas.
-define('BASE_URL', '');
+$scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+$basePath = rtrim(str_replace('\\', '/', dirname($scriptName)), '/');
+if ($basePath === '/' || $basePath === '.') {
+    $basePath = '';
+}
+define('BASE_URL', $basePath);
+
+$publicPath = $basePath;
+if ($publicPath === '' || substr($publicPath, -7) !== '/public') {
+    $publicPath = rtrim($publicPath . '/public', '/');
+}
+define('PUBLIC_URL', $publicPath);

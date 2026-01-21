@@ -52,7 +52,7 @@ class Auth
     {
         // Si no está autenticado, redirigir.
         if (!self::check()) {
-            header('Location: /login');
+            header('Location: ' . BASE_URL . '/login');
             exit;
         }
     }
