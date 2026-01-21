@@ -18,7 +18,22 @@ use GoEduca\Support\Env;
 Env::load(__DIR__ . '/../backend/.env');
 DatabaseService::bootstrap();
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+$basePath = rtrim(str_replace('\\', '/', dirname($scriptName)), '/');
+if ($basePath === '/' || $basePath === '.') {
+    $basePath = '';
+}
+if ($basePath !== '' && substr($basePath, -7) === '/public') {
+    $basePath = substr($basePath, 0, -7);
+}
+
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '/';
+if ($basePath !== '' && strpos($uri, $basePath) === 0) {
+    $uri = substr($uri, strlen($basePath));
+    if ($uri === '') {
+        $uri = '/';
+    }
+}
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
 $routes = require __DIR__ . '/../routes/web.php';
@@ -42,8 +57,6 @@ if ($method === 'POST' && $uri === '/auth/login') {
     if ($user !== null) {
         $_SESSION['authenticated'] = true;
         $_SESSION['role'] = $user['role'] ?? 'director';
-        $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/');
-        $basePath = $basePath === '/' ? '' : $basePath;
         $dashboardRoutes = [
             'director' => '/dashboard/director',
             'teacher' => '/dashboard/teacher',
@@ -69,8 +82,6 @@ if ($method === 'POST' && $uri === '/auth/login') {
 if (isset($routes[$uri])) {
     $isAuthRoute = strpos($uri, '/auth') === 0;
     if (!$isAuthRoute && empty($_SESSION['authenticated'])) {
-        $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/');
-        $basePath = $basePath === '/' ? '' : $basePath;
         header('Location: ' . $basePath . '/auth/login');
         exit;
     }
