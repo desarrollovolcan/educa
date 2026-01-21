@@ -67,7 +67,7 @@ if ($method === 'POST' && $uri === '/auth/login') {
 }
 
 if (isset($routes[$uri])) {
-    $isAuthRoute = str_starts_with($uri, '/auth');
+    $isAuthRoute = strpos($uri, '/auth') === 0;
     if (!$isAuthRoute && empty($_SESSION['authenticated'])) {
         $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/');
         $basePath = $basePath === '/' ? '' : $basePath;

@@ -34,7 +34,7 @@ switch ($command) {
     case 'db:rollback':
         $steps = 1;
         foreach ($argv as $arg) {
-            if (str_starts_with($arg, '--steps=')) {
+        if (strpos($arg, '--steps=') === 0) {
                 $steps = (int) str_replace('--steps=', '', $arg);
             }
         }
