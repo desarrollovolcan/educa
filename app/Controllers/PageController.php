@@ -28,7 +28,10 @@ final class PageController
 
         if ($view === 'auth/login') {
             $dbName = Env::get('DB_DATABASE', 'goeduca');
-            if (!class_exists(\PDO::class)) {
+            if (!class_exists(Connection::class)) {
+                $dbStatus = 'error';
+                $dbError = 'Servicio de base de datos no disponible.';
+            } elseif (!class_exists(\PDO::class)) {
                 $dbStatus = 'error';
                 $dbError = 'Extensión PDO no disponible en el servidor.';
             } else {
