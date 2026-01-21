@@ -4,7 +4,7 @@ Sistema de gestión educacional para Chile (multi-tenant por RBD).
 
 ## Arquitectura
 - Backend PHP 8.2 con CLI propio (`backend/bin/goeduca`).
-- Frontend inicial con plantilla HTML existente (maquetas).
+- Frontend MVC (PHP) con vistas en `app/Views` y rutas en `routes/web.php`.
 - Base de datos MySQL 8.
 - Migraciones SQL versionadas + scripts diferenciales.
 
@@ -14,6 +14,10 @@ backend/
   bin/goeduca
   src/
   .env.example
+app/
+  Controllers/
+  Views/
+routes/
 public/
 database/
   migrations/
@@ -33,4 +37,3 @@ php backend/bin/goeduca db:init
 - [Instalación](docs/installation.md)
 - [Migraciones y upgrades](docs/database.md)
 - [Roles y permisos](docs/roles-permissions.md)
-
