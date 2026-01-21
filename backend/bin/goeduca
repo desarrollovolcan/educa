@@ -50,18 +50,36 @@ switch ($command) {
 
 function dbInit(string $migrationsPath, string $seedsPath, string $updatesPath): void
 {
-    $rootPdo = Connection::rootPdo();
-
     $dbName = Env::get('DB_DATABASE', 'goeduca');
     $dbUser = Env::get('DB_USERNAME', 'goeduca');
     $dbPass = Env::get('DB_PASSWORD', 'secret');
 
-    $rootPdo->exec("CREATE DATABASE IF NOT EXISTS `{$dbName}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
-    $rootPdo->exec("CREATE USER IF NOT EXISTS '{$dbUser}'@'%' IDENTIFIED BY '{$dbPass}'");
-    $rootPdo->exec("GRANT ALL PRIVILEGES ON `{$dbName}`.* TO '{$dbUser}'@'%'");
-    $rootPdo->exec('FLUSH PRIVILEGES');
+    $rootPdo = Connection::rootPdoOrNull();
+    if ($rootPdo === null) {
+        fwrite(STDERR, "Root connection unavailable; skipping database/user provisioning.\n");
+    } else {
+        try {
+            $dbIdentifier = sprintf('`%s`', str_replace('`', '``', $dbName));
+            $userIdentifier = sprintf('%s@%s', $rootPdo->quote($dbUser), $rootPdo->quote('%'));
+            $passwordLiteral = $rootPdo->quote($dbPass);
 
-    $pdo = Connection::appPdo();
+            $rootPdo->exec("CREATE DATABASE IF NOT EXISTS {$dbIdentifier} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $rootPdo->exec("CREATE USER IF NOT EXISTS {$userIdentifier} IDENTIFIED BY {$passwordLiteral}");
+            $rootPdo->exec("GRANT ALL PRIVILEGES ON {$dbIdentifier}.* TO {$userIdentifier}");
+            $rootPdo->exec('FLUSH PRIVILEGES');
+        } catch (PDOException $exception) {
+            fwrite(STDERR, "Database provisioning failed: {$exception->getMessage()}\n");
+        }
+    }
+
+    $pdo = Connection::appPdoOrNull();
+    if ($pdo === null) {
+        fwrite(
+            STDERR,
+            "Unable to connect with application credentials. Ensure the database exists and credentials are valid.\n"
+        );
+        exit(1);
+    }
     ensureSchemaVersionsTable($pdo);
 
     $migrations = listMigrations($migrationsPath);
