@@ -22,6 +22,11 @@ final class PageController
         $contentView = $viewPath;
         $layout = $data['layout'] ?? 'app';
         $assetBase = rtrim(Env::get('APP_URL', ''), '/');
+        if ($assetBase === '') {
+            $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+            $baseDir = rtrim(dirname($scriptName), '/');
+            $assetBase = $baseDir === '/' ? '' : $baseDir;
+        }
         $dbStatus = null;
         $dbName = null;
         $dbError = null;
