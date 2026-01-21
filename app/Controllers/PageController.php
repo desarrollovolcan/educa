@@ -17,7 +17,13 @@ final class PageController
 
         $title = $data['title'] ?? 'Go Educa';
         $contentView = $viewPath;
+        $layout = $data['layout'] ?? 'app';
 
-        require __DIR__ . '/../Views/layouts/app.php';
+        $layoutPath = __DIR__ . '/../Views/layouts/' . $layout . '.php';
+        if (!file_exists($layoutPath)) {
+            $layoutPath = __DIR__ . '/../Views/layouts/app.php';
+        }
+
+        require $layoutPath;
     }
 }

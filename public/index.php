@@ -20,7 +20,10 @@ $controller = new PageController();
 
 if (isset($routes[$uri])) {
     $route = $routes[$uri];
-    $controller->render($route['view'], ['title' => $route['title']]);
+    $controller->render($route['view'], [
+        'title' => $route['title'],
+        'layout' => $route['layout'] ?? 'app',
+    ]);
     exit;
 }
 

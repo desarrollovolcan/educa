@@ -1,15 +1,15 @@
 <?php
 
 return [
-    '/' => ['view' => 'auth/login', 'title' => 'Login'],
-    '/auth/login' => ['view' => 'auth/login', 'title' => 'Login'],
-    '/auth/password-request' => ['view' => 'auth/password-request', 'title' => 'Recuperar contraseña'],
-    '/auth/password-reset' => ['view' => 'auth/password-reset', 'title' => 'Restablecer contraseña'],
-    '/auth/2fa' => ['view' => 'auth/2fa', 'title' => 'Verificación 2FA'],
-    '/auth/tenant-select' => ['view' => 'auth/tenant-select', 'title' => 'Seleccionar establecimiento'],
-    '/auth/profile' => ['view' => 'auth/profile', 'title' => 'Perfil de usuario'],
-    '/auth/forbidden' => ['view' => 'auth/forbidden', 'title' => 'Sin permisos'],
-    '/auth/audit' => ['view' => 'auth/audit', 'title' => 'Auditoría'],
+    '/' => ['view' => 'auth/login', 'title' => 'Login', 'layout' => 'auth'],
+    '/auth/login' => ['view' => 'auth/login', 'title' => 'Login', 'layout' => 'auth'],
+    '/auth/password-request' => ['view' => 'auth/password-request', 'title' => 'Recuperar contraseña', 'layout' => 'auth'],
+    '/auth/password-reset' => ['view' => 'auth/password-reset', 'title' => 'Restablecer contraseña', 'layout' => 'auth'],
+    '/auth/2fa' => ['view' => 'auth/2fa', 'title' => 'Verificación 2FA', 'layout' => 'auth'],
+    '/auth/tenant-select' => ['view' => 'auth/tenant-select', 'title' => 'Seleccionar establecimiento', 'layout' => 'auth'],
+    '/auth/profile' => ['view' => 'auth/profile', 'title' => 'Perfil de usuario', 'layout' => 'auth'],
+    '/auth/forbidden' => ['view' => 'auth/forbidden', 'title' => 'Sin permisos', 'layout' => 'auth'],
+    '/auth/audit' => ['view' => 'auth/audit', 'title' => 'Auditoría', 'layout' => 'auth'],
 
     '/dashboard/director' => ['view' => 'dashboards/director', 'title' => 'Dashboard Director/UTP'],
     '/dashboard/teacher' => ['view' => 'dashboards/teacher', 'title' => 'Dashboard Docente'],
