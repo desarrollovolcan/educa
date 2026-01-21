@@ -1,0 +1,3 @@
+# Redirigir cualquier petición raíz a /public
+RewriteEngine On
+RewriteRule ^$ public/ [L]
