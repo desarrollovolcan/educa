@@ -17,8 +17,16 @@ if ($basePath === '/' || $basePath === '.') {
 }
 define('BASE_URL', $basePath);
 
-$publicPath = $basePath;
-if ($publicPath === '' || substr($publicPath, -7) !== '/public') {
-    $publicPath = rtrim($publicPath . '/public', '/');
+$scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+$scriptDir = rtrim(dirname($scriptName), '/');
+$documentRoot = rtrim(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT'] ?? ''), '/');
+
+if ($scriptDir !== '' && substr($scriptDir, -7) === '/public') {
+    $publicPath = $scriptDir;
+} elseif ($documentRoot !== '' && is_dir($documentRoot . '/assets')) {
+    $publicPath = $basePath;
+} else {
+    $publicPath = rtrim($basePath . '/public', '/');
 }
+
 define('PUBLIC_URL', $publicPath);
