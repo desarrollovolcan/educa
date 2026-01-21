@@ -6,13 +6,13 @@
                     <div class="card-body px-3 py-5">
                         <div class="mx-auto mb-4 text-center auth-logo">
                             <a href="/" class="logo-dark">
-                                <img src="/assets/images/logo-sm.png" height="30" class="me-1" alt="logo sm">
-                                <img src="/assets/images/logo-dark.png" height="24" alt="logo dark">
+                                <img src="/assets/images/logo-sm.svg" height="30" class="me-1" alt="logo sm">
+                                <img src="/assets/images/logo-dark.svg" height="24" alt="logo dark">
                             </a>
 
                             <a href="/" class="logo-light">
-                                <img src="/assets/images/logo-sm.png" height="30" class="me-1" alt="logo sm">
-                                <img src="/assets/images/logo-light.png" height="24" alt="logo light">
+                                <img src="/assets/images/logo-sm.svg" height="30" class="me-1" alt="logo sm">
+                                <img src="/assets/images/logo-light.svg" height="24" alt="logo light">
                             </a>
                         </div>
 

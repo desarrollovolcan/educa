@@ -1,0 +1,10 @@
+.authentication-bg{min-height:100vh;background:linear-gradient(135deg,#eef2ff 0%,#f8fafc 100%)}
+.account-pages{display:flex;align-items:center;min-height:100vh}
+.auth-card{border:0;border-radius:1rem;box-shadow:0 12px 30px rgba(15,23,42,0.08);background:#fff}
+.auth-logo img{vertical-align:middle}
+.authentication-form .btn{width:100%}
+.no-span{position:relative;text-align:center;color:var(--bs-muted)}
+.no-span::before,.no-span::after{content:"";position:absolute;top:50%;width:35%;height:1px;background:var(--bs-border-color)}
+.no-span::before{left:0}
+.no-span::after{right:0}
+.text-unline-dashed{text-decoration:underline;text-decoration-style:dashed}
