@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+session_start();
+
 require_once __DIR__ . '/backend/src/Support/Env.php';
 if (class_exists('PDO')) {
     require_once __DIR__ . '/backend/src/Database/Connection.php';
